@@ -1,5 +1,5 @@
 
-type component_state = {repos: option (array RepoData.repo)};
+type componentState = {repos: option (array RepoData.repo)};
 
 let component = ReasonReact.statefulComponent "App";
 
@@ -11,7 +11,7 @@ let handleReposLoaded repos _state _self => {
 
 let make ::title _children => {
   ...component,
-  initialState: fun () :component_state => {
+  initialState: fun () :componentState => {
     repos: None
   },
   didMount: fun _state self => {
