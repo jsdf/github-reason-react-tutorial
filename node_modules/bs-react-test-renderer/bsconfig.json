@@ -1,0 +1,26 @@
+{
+  "name": "bs-react-test-renderer",
+  "reason": {
+    "react-jsx": true
+  },
+  "bs-dependencies": [
+    "reason-react"
+  ],
+  "bs-dev-dependencies": [
+    "bs-jest"
+  ],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": [
+        {
+          "dir": "__tests__",
+          "subdirs": [
+            "fixtures"
+          ],
+          "type": "dev"
+        }
+      ]
+    }
+  ]
+}

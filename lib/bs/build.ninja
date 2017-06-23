@@ -1,0 +1,55 @@
+ninja_required_version = 1.5.1 
+bs_package_flags = -bs-package-name create-reason-react-app
+src_root_dir = /Users/jfriend/code/github-re
+bsc = /Users/jfriend/code/github-re/node_modules/bs-platform/bin/bsc.exe
+bsdep = /Users/jfriend/code/github-re/node_modules/bs-platform/bin/bsb_helper.exe
+ocamllex = ocamllex.opt
+bsc_flags = -nostdlib -I '/Users/jfriend/code/github-re/node_modules/bs-platform/lib/ocaml' -no-alias-deps -color always -w -40+6+7+27+32..39+44+45
+ppx_flags = 
+bs_package_includes = -I /Users/jfriend/code/github-re/node_modules/reason-react/lib/ocaml -I /Users/jfriend/code/github-re/node_modules/bs-director/lib/ocaml -I /Users/jfriend/code/github-re/node_modules/bs-fetch/lib/ocaml -I /Users/jfriend/code/github-re/node_modules/bs-json/lib/ocaml
+bs_package_dev_includes = -I /Users/jfriend/code/github-re/node_modules/bs-jest/lib/ocaml -I /Users/jfriend/code/github-re/node_modules/bs-react-test-renderer/lib/ocaml
+refmt = /Users/jfriend/code/github-re/node_modules/bs-platform/bin/refmt.exe
+reason_react_jsx = -ppx '/Users/jfriend/code/github-re/node_modules/bs-platform/bin/reactjs_jsx_ppx_2.exe'
+refmt_flags = --print binary
+bsb_dir_group = 0
+bsc_lib_includes = -I src
+bsc_group_1_includes = -I src/__tests__
+rule build_ast_and_deps_from_reason_impl
+  command = ${bsc} -pp "${refmt} ${refmt_flags}" ${reason_react_jsx}  ${ppx_flags} ${bsc_flags} -c -o ${out} -bs-syntax-only -bs-binary-ast -impl ${in}
+  description = [34mBuilding[39m [2m${out}[22m
+build src/app.mlast : build_ast_and_deps_from_reason_impl $src_root_dir/src/app.re
+rule build_deps
+  command = ${bsdep} -g ${bsb_dir_group} -MD ${in}
+  description = [34mBuilding[39m [2m${out}[22m
+build src/app.mlast.d : build_deps src/app.mlast
+rule build_cmj_cmi
+  command = ${bsc} ${bs_package_flags} -bs-assume-no-mli -bs-no-builtin-ppx-ml -bs-no-implicit-include ${bs_package_includes} ${bsc_lib_includes} ${bsc_extra_includes} ${bsc_flags} -o ${in} -c  ${in} ${postbuild}
+  depfile = ${in}.d
+  description = [34mBuilding[39m [2m${out}[22m
+build src/app.cmj $src_root_dir/lib/js/src/app.js src/app.cmi : build_cmj_cmi src/app.mlast
+  postbuild = && $src_root_dir/./scripts/copy.js $src_root_dir/lib/js/src/app.js
+  bs_package_flags = $bs_package_flags  -bs-package-output commonjs:lib/js/src
+build src/index.mlast : build_ast_and_deps_from_reason_impl $src_root_dir/src/index.re
+build src/index.mlast.d : build_deps src/index.mlast
+build src/index.cmj $src_root_dir/lib/js/src/index.js src/index.cmi : build_cmj_cmi src/index.mlast
+  postbuild = && $src_root_dir/./scripts/copy.js $src_root_dir/lib/js/src/index.js
+  bs_package_flags = $bs_package_flags  -bs-package-output commonjs:lib/js/src
+build src/RepoData.mlast : build_ast_and_deps_from_reason_impl $src_root_dir/src/RepoData.re
+build src/RepoData.mlast.d : build_deps src/RepoData.mlast
+build src/RepoData.cmj $src_root_dir/lib/js/src/RepoData.js src/RepoData.cmi : build_cmj_cmi src/RepoData.mlast
+  postbuild = && $src_root_dir/./scripts/copy.js $src_root_dir/lib/js/src/RepoData.js
+  bs_package_flags = $bs_package_flags  -bs-package-output commonjs:lib/js/src
+build src/RepoItem.mlast : build_ast_and_deps_from_reason_impl $src_root_dir/src/RepoItem.re
+build src/RepoItem.mlast.d : build_deps src/RepoItem.mlast
+build src/RepoItem.cmj $src_root_dir/lib/js/src/RepoItem.js src/RepoItem.cmi : build_cmj_cmi src/RepoItem.mlast
+  postbuild = && $src_root_dir/./scripts/copy.js $src_root_dir/lib/js/src/RepoItem.js
+  bs_package_flags = $bs_package_flags  -bs-package-output commonjs:lib/js/src
+build src/__tests__/app_test.mlast : build_ast_and_deps_from_reason_impl $src_root_dir/src/__tests__/app_test.re
+build src/__tests__/app_test.mlast.d : build_deps src/__tests__/app_test.mlast
+  bsb_dir_group = 1
+build src/__tests__/app_test.cmj $src_root_dir/lib/js/src/__tests__/app_test.js src/__tests__/app_test.cmi : build_cmj_cmi src/__tests__/app_test.mlast
+  postbuild = && $src_root_dir/./scripts/copy.js $src_root_dir/lib/js/src/__tests__/app_test.js
+  bs_package_flags = $bs_package_flags  -bs-package-output commonjs:lib/js/src/__tests__
+  bs_package_includes = $bs_package_includes $bs_package_dev_includes
+  bsc_extra_includes = ${bsc_group_1_includes}
+build build.ninja : phony  ||  src/__tests__/app_test.mlast.d src/RepoItem.mlast.d src/RepoData.mlast.d src/index.mlast.d src/app.mlast.d

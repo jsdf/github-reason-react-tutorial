@@ -1,0 +1,4 @@
+lib/*
+!lib/js
+.merlin
+node_modules/

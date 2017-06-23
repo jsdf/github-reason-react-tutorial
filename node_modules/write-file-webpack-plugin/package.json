@@ -1,0 +1,54 @@
+{
+  "name": "write-file-webpack-plugin",
+  "license": "BSD-3-Clause",
+  "version": "4.1.0",
+  "description": "Forces webpack-dev-server to write bundle files to the file system.",
+  "main": "./dist/index.js",
+  "author": {
+    "name": "Gajus Kuizinas",
+    "email": "gk@anuary.com",
+    "url": "http://gajus.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gajus/write-file-webpack-plugin"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "webpack-dev-server",
+    "write",
+    "file"
+  ],
+  "engines": {
+    "node": ">=5"
+  },
+  "scripts": {
+    "lint": "eslint ./src",
+    "build": "babel --source-maps --copy-files ./src --out-dir ./dist",
+    "test": "echo 'Please add tests :-('",
+    "readme": "gitdown ./.README/README.md --output-file ./README.md",
+    "precommit": "npm run lint && npm run test"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-es2015-parameters": "^6.18.0",
+    "babel-plugin-transform-es2015-spread": "^6.8.0",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "eslint": "^3.9.1",
+    "eslint-config-canonical": "^4.0.0",
+    "husky": "^0.11.9",
+    "webpack": "^2.1.0-beta.4",
+    "webpack-dev-server": "^2.0.0-beta"
+  },
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "debug": "^2.6.8",
+    "filesize": "^3.2.1",
+    "lodash": "^4.5.1",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.11.2"
+  }
+}

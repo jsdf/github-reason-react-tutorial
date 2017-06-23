@@ -1,0 +1,4 @@
+.merlin
+.DS_Store
+/lib/
+/node_modules/
