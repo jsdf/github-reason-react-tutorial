@@ -1,8 +1,3 @@
-# Create Reason React App
+# github-reason-react-tutorial
 
-## Usage
-
-- **`yarn start`**: Start up the development environment
-- **`yarn build`**: Build for production
-- **`yarn clean`**: Clean the build folder
-- **`yarn test`**: Run Jest tests
+See https://jamesfriend.com.au/a-first-reason-react-app-for-js-developers
