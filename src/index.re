@@ -1,1 +1,7 @@
-ReactDOMRe.renderToElementWithId <App title="1" /> "root";
+
+[%%bs.raw {|
+  require('./index.css');
+|}];
+
+ReactDOMRe.renderToElementWithId(<App />, "root");
+

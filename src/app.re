@@ -1,39 +1,49 @@
+type state = {repoData: option(array(RepoData.repo))};
 
-type componentState = {repos: option (array RepoData.repo)};
+type action =
+ | Loaded(array(RepoData.repo));
 
-let component = ReasonReact.statefulComponent "App";
+let component = ReasonReact.reducerComponent("App");
 
-let handleReposLoaded repos _state _self => {
-  ReasonReact.Update {
-    repos: Some repos
-  };
-};
-
-let make ::title _children => {
+let make = (_children) => {
   ...component,
-  initialState: fun () :componentState => {
-    repos: None
+  initialState: (): state => {
+    repoData: None
   },
-  didMount: fun _state self => {
-    RepoData.fetchRepos ()
-      |> Js.Promise.then_ (fun repos => {
-          (self.update handleReposLoaded) repos;
-          Js.Promise.resolve ();
+  didMount: self => {
+    let handleReposLoaded = self.reduce(repoData => Loaded(repoData));
+
+    RepoData.fetchRepos()
+      |> Js.Promise.then_(repoData => {
+          handleReposLoaded(repoData);
+          Js.Promise.resolve();
         })
       |> ignore;
 
     ReasonReact.NoUpdate;
   },
-  render: fun state _self => {
-    let repoItem = switch (state.repos) {
-      | Some repos => ReasonReact.arrayToElement (Array.map
-          (fun (repo: RepoData.repo) => <RepoItem key=repo.full_name repo=repo />) repos
-        )
-      | None => ReasonReact.stringToElement "Loading"
+  reducer: (action, state) => {
+    switch action {
+      | Loaded(loadedRepo) => ReasonReact.Update({
+          repoData: Some(loadedRepo)
+        })
     };
+  },
+  render: (self) => {
+    let repoItem =
+      switch (self.state.repoData) {
+      | Some(repos) => ReasonReact.arrayToElement(
+          Array.map(
+            (repo: RepoData.repo) => <RepoItem key=repo.full_name repo=repo />,
+            repos
+          )
+        )
+      | None => ReasonReact.stringToElement("Loading")
+      };
+
     <div className="App">
-      <div className="App-header"> <h1> (ReasonReact.stringToElement "Reason Projects") </h1> </div>
-      repoItem
+      <h1>{ReasonReact.stringToElement("Reason Projects")}</h1>
+      {repoItem}
     </div>
   }
 };

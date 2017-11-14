@@ -1,1 +1,1 @@
-src/app.cmj : src/RepoItem.cmj src/RepoData.cmj
+src/app.cmj : src/RepoData.cmj src/RepoItem.cmj

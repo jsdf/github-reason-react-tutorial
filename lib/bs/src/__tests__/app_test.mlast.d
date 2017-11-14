@@ -1,1 +1,0 @@
-src/__tests__/app_test.cmj : src/app.cmj

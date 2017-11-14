@@ -1,32 +1,21 @@
-body {
-  font-family: Open Sans, sans-serif;
-  background-color: #f6f4f4;
-}
-
-code {
-  font-family: Courier New;
-  color: #8f8f8f;
-}
-
 .App {
   text-align: center;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 200px;
+  height: 80px;
 }
 
 .App-header {
-  display: flex;
-  align-items: center;
-  margin: 100px;
-  color: #333333;
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
 }
 
 .App-intro {
   font-size: large;
-  color: #444;
 }
 
 @keyframes App-logo-spin {
