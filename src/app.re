@@ -22,7 +22,7 @@ let make = (_children) => {
 
     ReasonReact.NoUpdate;
   },
-  reducer: (action, state) => {
+  reducer: (action, _state) => {
     switch action {
       | Loaded(loadedRepo) => ReasonReact.Update({
           repoData: Some(loadedRepo)
