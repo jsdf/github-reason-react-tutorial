@@ -12,7 +12,7 @@ let parseRepoJson = json =>
   };
 
 let parseReposResponseJson = json =>
-  Json.Decode.field("items", Json.Decode.array(parseRepoJson), json);
+  Json.Decode.(field("items", array(parseRepoJson), json));
 
 let reposUrl = "https://api.github.com/search/repositories?q=topic%3Areasonml&type=Repositories";
 
