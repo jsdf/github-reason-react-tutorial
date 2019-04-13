@@ -1,49 +1,38 @@
-type state = {repoData: option(array(RepoData.repo))};
+[@react.component]
+let make = () => {
+  let (repoData, setRepoData) = React.useState(() => None);
 
-type action =
- | Loaded(array(RepoData.repo));
-
-let component = ReasonReact.reducerComponent("App");
-
-let make = (_children) => {
-  ...component,
-  initialState: (): state => {
-    repoData: None
-  },
-  didMount: self => {
-    let handleReposLoaded = self.reduce(repoData => Loaded(repoData));
-
-    RepoData.fetchRepos()
+  React.useEffect1(
+    () => {
+      RepoData.fetchRepos()
       |> Js.Promise.then_(repoData => {
-          handleReposLoaded(repoData);
-          Js.Promise.resolve();
-        })
+           setRepoData(_prev => Some(repoData));
+           Js.Promise.resolve();
+         })
+      |> Js.Promise.catch(err => {
+           Js.log("An error occurred: " ++ Js.String.make(err));
+           Js.Promise.resolve();
+         })
       |> ignore;
+      None;
+    },
+    [|0|] // only run once
+  );
 
-    ReasonReact.NoUpdate;
-  },
-  reducer: (action, _state) => {
-    switch action {
-      | Loaded(loadedRepo) => ReasonReact.Update({
-          repoData: Some(loadedRepo)
-        })
+  let repoItems =
+    switch (repoData) {
+    | Some(repos) =>
+      ReasonReact.array(
+        Array.map(
+          (repo: RepoData.repo) => <RepoItem key={repo.full_name} repo />,
+          repos,
+        ),
+      )
+    | None => React.string("Loading...")
     };
-  },
-  render: (self) => {
-    let repoItem =
-      switch (self.state.repoData) {
-      | Some(repos) => ReasonReact.arrayToElement(
-          Array.map(
-            (repo: RepoData.repo) => <RepoItem key=repo.full_name repo=repo />,
-            repos
-          )
-        )
-      | None => ReasonReact.stringToElement("Loading")
-      };
 
-    <div className="App">
-      <h1>{ReasonReact.stringToElement("Reason Projects")}</h1>
-      {repoItem}
-    </div>
-  }
+  <div className="App">
+    <h1> {ReasonReact.string("Reason Projects")} </h1>
+    repoItems
+  </div>;
 };

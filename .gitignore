@@ -44,3 +44,5 @@ example/output/
 main.jsbundle
 
 images/generated/
+
+*.bs.js

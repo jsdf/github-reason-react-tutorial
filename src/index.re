@@ -1,7 +1,6 @@
-
-[%%bs.raw {|
-  require('./index.css');
-|}];
+%bs.raw
+{|
+require('./index.css');
+|};
 
 ReactDOMRe.renderToElementWithId(<App />, "root");
-

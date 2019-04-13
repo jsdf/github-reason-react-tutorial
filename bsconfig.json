@@ -1,19 +1,20 @@
 {
-  "name": "reason-scripts",
-  "sources": [
-    "src"
-  ],
-  "bs-dependencies": [
-    "reason-react",
-    "bs-jest",
-    "bs-fetch", // add this
-    "bs-json" // and this too
-  ],
+  "name": "react-hooks-template",
   "reason": {
-    "react-jsx": 2
+    "react-jsx": 3
   },
-  "bsc-flags": [
-    "-bs-super-errors"
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+  "package-specs": [
+    {
+      "module": "commonjs",
+      "in-source": true
+    }
   ],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": ["reason-react", "bs-fetch", "@glennsl/bs-json"],
   "refmt": 3
 }

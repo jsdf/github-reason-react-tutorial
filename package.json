@@ -1,23 +1,34 @@
 {
-  "name": "github-reason-list",
+  "name": "reason-repo-list",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "bs-fetch": "github:buckletypes/bs-fetch",
-    "bs-json": "github:buckletypes/bs-json",
-    "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "reason-scripts": "^0.7.0"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "prepare": "npm link bs-platform"
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack -w",
+    "webpack:production": "NODE_ENV=production webpack",
+    "server": "webpack-dev-server"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@glennsl/bs-json": "^3.0.0",
+    "bs-fetch": "^0.3.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "reason-react": ">=0.7.0"
   },
   "devDependencies": {
-    "bs-jest": "^0.2.0",
-    "reason-react": "^0.2.4"
+    "bs-platform": "^5.0.2",
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.8"
   }
 }
