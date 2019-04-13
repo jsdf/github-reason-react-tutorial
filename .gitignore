@@ -46,3 +46,4 @@ main.jsbundle
 images/generated/
 
 *.bs.js
+build/

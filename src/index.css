@@ -1,3 +1,12 @@
 body {
-  background-color: red;
+  background: linear-gradient(
+    to left,
+    rgba(148, 208, 255, 1) 20%,
+    rgba(255, 106, 213, 1) 80%
+  );
+  min-height: 100vh;
+}
+
+a {
+  color: white;
 }
