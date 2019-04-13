@@ -2,22 +2,19 @@
 let make = () => {
   let (repoData, setRepoData) = React.useState(() => None);
 
-  React.useEffect1(
-    () => {
-      RepoData.fetchRepos()
-      |> Js.Promise.then_(repoData => {
-           setRepoData(_prev => Some(repoData));
-           Js.Promise.resolve();
-         })
-      |> Js.Promise.catch(err => {
-           Js.log("An error occurred: " ++ Js.String.make(err));
-           Js.Promise.resolve();
-         })
-      |> ignore;
-      None;
-    },
-    [|0|] // only run once
-  );
+  React.useEffect0(() => {
+    RepoData.fetchRepos()
+    |> Js.Promise.then_(repoData => {
+         setRepoData(_prev => Some(repoData));
+         Js.Promise.resolve();
+       })
+    |> Js.Promise.catch(err => {
+         Js.log("An error occurred: " ++ Js.String.make(err));
+         Js.Promise.resolve();
+       })
+    |> ignore;
+    None;
+  });
 
   let repoItems =
     switch (repoData) {
@@ -31,8 +28,5 @@ let make = () => {
     | None => React.string("Loading...")
     };
 
-  <div className="App">
-    <h1> {ReasonReact.string("Reason Projects")} </h1>
-    repoItems
-  </div>;
+  <div> <h1> {ReasonReact.string("Reason Projects")} </h1> repoItems </div>;
 };

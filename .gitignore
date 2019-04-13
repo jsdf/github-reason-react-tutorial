@@ -45,5 +45,6 @@ main.jsbundle
 
 images/generated/
 
+.bsb.lock
 *.bs.js
 build/
